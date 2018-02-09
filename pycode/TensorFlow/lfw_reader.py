@@ -114,15 +114,6 @@ class lfw_reader():
 	def pair_testset_full_path_gen(self):
 		return self.pair_full_path_gen(self.pair_test_txt)
 
-	# this function will return a generator which containing 
-	# image pairs' full path
-	def pair_full_path_gen(self, txt_name):
-		for name1, num1, name2, num2 in self.pair_list_gen(txt_name):
-			img1_path = os.path.join(self.lfw_path, self.img_path, name1, name1+"_"+num1+".jpg")
-			img2_path = os.path.join(self.lfw_path, self.img_path, name2, name2+"_"+num2+".jpg")
-			yield [img1_path, img2_path]
-
-
 	# this function will return a full path of image
 	# def img_full_path_gen(self, img_name):
 		# img_full_path = os.path.join(self.lfw_path, self.img_path, img_name)
@@ -135,6 +126,14 @@ class lfw_reader():
 		# img_folder_path = os.path.join(self.lfw_path, self.img_path)
 		# for name in self.name_list_gen():
 			# yield os.listdir(os.path.join(img_folder_path, name))
+
+	# this function will return a generator which containing 
+	# image pairs' full path
+	def pair_full_path_gen(self, txt_name):
+		for name1, num1, name2, num2 in self.pair_list_gen(txt_name):
+			img1_path = os.path.join(self.lfw_path, self.img_path, name1, name1+"_"+num1+".jpg")
+			img2_path = os.path.join(self.lfw_path, self.img_path, name2, name2+"_"+num2+".jpg")
+			yield [img1_path, img2_path]
 
 	# return a list which contains the filename under the folder named by
 	# parameter "name"
