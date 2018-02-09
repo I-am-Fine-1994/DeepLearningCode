@@ -87,6 +87,27 @@ class lfw_reader():
 			full_path_list.append(path)
 		return full_path_list
 
+	def img_full_path_gen(self):
+		for name in self.name_list_gen():
+			name = name[0]
+			for img in self.onefolder_list(name):
+				# print(img)
+				img_full_path = os.path.join(self.lfw_path, self.img_path, name, img)
+				# print(img_full_path)
+				yield img_full_path
+
+	# this function will read lfw-names.txt file and return a generator 
+	# you can download this txt file from the lfw website
+	# what's more, you need to put this file under your lfw_path
+	# Each item in this generator is:
+	# 	a list consists of individuals' name and the number of photos
+	# 	the 1st element is the name, the 2nd element is the number of photos
+	def name_list_gen(self):
+		filename = os.path.join(self.lfw_path, self.lfw_names_txt)
+		with open(filename) as f:
+			for name in f:
+				yield name.split()
+
 	# this function will return a generator of trainset
 	# for the purpose of saving memory
 	def pair_trainset_gen(self):
@@ -97,15 +118,6 @@ class lfw_reader():
 	def pair_testset_gen(self):
 		return self.pair_list_gen(os.path.join(self.lfw_path, self.pair_test_txt))
 
-	def img_full_path_gen(self):
-		for name in self.name_list_gen():
-			name = name[0]
-			for img in self.onefolder_list(name):
-				# print(img)
-				img_full_path = os.path.join(self.lfw_path, self.img_path, name, img)
-				# print(img_full_path)
-				yield img_full_path
-
 	# this function will return a generator of images' path of trainset
 	def pair_trainset_full_path_gen(self):
 		return self.pair_full_path_gen(self.pair_train_txt)
@@ -114,18 +126,7 @@ class lfw_reader():
 	def pair_testset_full_path_gen(self):
 		return self.pair_full_path_gen(self.pair_test_txt)
 
-	# this function will return a full path of image
-	# def img_full_path_gen(self, img_name):
-		# img_full_path = os.path.join(self.lfw_path, self.img_path, img_name)
-		# return img_full_path
-
-	# this function will return a generator
-	# Each item in this generator is:
-	# 	filename list under the folder
-	# def img_file_list(self):
-		# img_folder_path = os.path.join(self.lfw_path, self.img_path)
-		# for name in self.name_list_gen():
-			# yield os.listdir(os.path.join(img_folder_path, name))
+##############################################################################
 
 	# this function will return a generator which containing 
 	# image pairs' full path
@@ -141,18 +142,6 @@ class lfw_reader():
 		img_folder_path = os.path.join(self.lfw_path, self.img_path)
 		onefolder_list = os.listdir(os.path.join(img_folder_path, name))
 		return onefolder_list
-
-	# this function will read lfw-names.txt file and return a generator 
-	# you can download this txt file from the lfw website
-	# what's more, you need to put this file under your lfw_path
-	# Each item in this generator is:
-	# 	a list consists of individuals' name and the number of photos
-	# 	the 1st element is the name, the 2nd element is the number of photos
-	def name_list_gen(self):
-		filename = os.path.join(self.lfw_path, self.lfw_names_txt)
-		with open(filename) as f:
-			for name in f:
-				yield name.split()
 
 	# this function will parse the txt named pairXX.txt
 	# and return a generator of parsed pair_data
