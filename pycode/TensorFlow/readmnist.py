@@ -1,8 +1,10 @@
 import struct
 
+data_path = "D:/Database/mnist"
+
 def load_train_image():
 	print("loading training image set")
-	filename = "../mnist/train-images-idx3-ubyte"
+	filename = data_path + "/train-images-idx3-ubyte"
 	mnist_file = open(filename, 'rb')
 	buffers = mnist_file.read()
 	
@@ -23,7 +25,7 @@ def load_train_image():
 	
 def load_train_label():
 	print("loading training label set")
-	filename = "../mnist/train-labels-idx1-ubyte"
+	filename = data_path + "/train-labels-idx1-ubyte"
 	
 	mnist_file = open(filename, 'rb')
 	buffers = mnist_file.read()
@@ -42,7 +44,7 @@ def load_train_label():
 	
 def load_test_image():
 	print("loading test image set")
-	filename = "../mnist/t10k-images-idx3-ubyte"
+	filename = data_path + "/t10k-images-idx3-ubyte"
 	
 	mnist_file = open(filename, 'rb')
 	buffers = mnist_file.read()
@@ -64,7 +66,7 @@ def load_test_image():
 	
 def load_test_label():
 	print("loading test label set")
-	filename = "../mnist/t10k-labels-idx1-ubyte"
+	filename = data_path + "/t10k-labels-idx1-ubyte"
 	
 	mnist_file = open(filename, 'rb')
 	buffers = mnist_file.read()
